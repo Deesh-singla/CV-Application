@@ -33,27 +33,27 @@ export default function Education({ addEducation, educations, deleteEducation })
         SetEducation(defaultEducation)
     }
     return (
-        <div id="edutaion" className="detail">
+        <div id="education" className="detail">
             <h1 className="formHeading" onClick={handleClick}><span>Education</span><span><i className={show ? "bx bx-chevron-up" : "bx bx-chevron-down"}></i></span></h1>
-            {show && !showForm && <div className="addEducation">
+            {show && !showForm && <div className="addData">
                 <div className="prevData">
                     {educations.map((x, index) => <Fragment key={index}><hr /><h2 onClick={() => editEducation(index)}>{x.school}<span><i className='bx bxs-trash' onClick={(e) => deleteInfo(e, index)}></i></span></h2></Fragment>)}
                 </div>
                 <button className="addBtn" onClick={handleshowForm}>Add Education</button>
             </div>}
             {show && showForm &&
-                <form id="educationForm" className="detailsForm" >
+                <form id="educationForm" className="detailsForm" onSubmit={handleClickSubmit}>
                     <label htmlFor="school">School</label>
-                    <input type="text" id="school" name="school" value={education.school} placeholder="Enter School/University" onChange={onChangeInput} />
+                    <input type="text" id="school" name="school" value={education.school} placeholder="Enter School/University" onChange={onChangeInput} required/>
                     <label htmlFor="degree">Degree</label>
-                    <input type="text" id="degree" value={education.degree} name="degree" placeholder="Enter Degree/Field Of Study" onChange={onChangeInput} />
+                    <input type="text" id="degree" value={education.degree} name="degree" placeholder="Enter Degree/Field Of Study" onChange={onChangeInput} required/>
                     <label htmlFor="startDate">Start Date</label>
-                    <input type="date" id="startDate" name="startDate" onChange={onChangeInput} value={education.startDate} />
+                    <input type="date" id="startDate" name="startDate" onChange={onChangeInput} value={education.startDate} required/>
                     <label htmlFor="endDate">End Date</label>
-                    <input type="date" id="endDate" name="endDate" onChange={onChangeInput} value={education.endDate} />
+                    <input type="date" id="endDate" name="endDate" onChange={onChangeInput} value={education.endDate} required/>
                     <label htmlFor="location">Location</label>
-                    <input type="text" id="location" name="location" placeholder="Enter Location" onChange={onChangeInput} value={education.location} />
-                    <button onClick={handleClickSubmit}>Save</button>
+                    <input type="text" id="location" name="location" placeholder="Enter Location" onChange={onChangeInput} value={education.location} required/>
+                    <button type="submit">Save</button>
                 </form>
             }
         </div>

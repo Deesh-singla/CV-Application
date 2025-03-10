@@ -1,4 +1,4 @@
-export default function CV({ personalDetail, educations }) {
+export default function CV({ personalDetail, educations ,experiences}) {
     return (
         <div id="page">
             <div id='personalDetailsOnPage'>
@@ -22,6 +22,24 @@ export default function CV({ personalDetail, educations }) {
                                 <div className="educationInfoGroup">
                                     <p className="schoolName"><b>{education.school}</b></p>
                                     <p className="dgreeInfo">{education.degree}</p>
+                                </div>
+                            </div>)}
+                        </div>
+                    </div>
+                }
+                {   experiences.length>0 && 
+                        <div id="experienceOnPage">
+                        <h2 className="headingOnPage">Experience</h2>
+                        <div id="allExperience">
+                            {experiences.map((experience,index)=><div key={index} id="educationInfo">
+                                <div className="infoGroupLeft infoGroup" >
+                                    <p className="dates"><span>{experience.startDate}</span> / <span>{experience.endDate}</span></p>
+                                    <p>{experience.location}</p>
+                                </div>
+                                <div className="infoGroupRight infoGroup">
+                                    <p className="companyName"><b>{experience.companyName}</b></p>
+                                    <p className="positionTitle">{experience.positionTitle}</p>
+                                    <p className="description">{experience.description}</p>
                                 </div>
                             </div>)}
                         </div>
