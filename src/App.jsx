@@ -22,14 +22,26 @@ export default function App() {
     function deleteExperience(i){
         setExperience(experiences.filter((x, index) => i !== index));
     }
+    function upDateExperience(obj,i){
+            setExperience(experiences.map((x,index)=>{
+                if (index==i)  return obj;
+                else return x;
+            }))        
+    }
+    function upDateEducation(obj,i){
+        setEducation(educations.map((x,index)=>{
+            if(index==i) return obj;
+            else return x;
+        }))
+    }
     return (
         <div id="app">
             <h1 id="heading">CV Application</h1>
             <div id="center">
                 <div id="left">
                     <PersonalDetails handleOnChange={handleOnChangeInPersonalDetail} personalDetail={personalDetail} />
-                    <Education addEducation={addEducation} educations={educations} deleteEducation={deleteEducation} />
-                    <Experience addExperience={addExperience} experiences={experiences} deleteExperience={deleteExperience}/>
+                    <Education addEducation={addEducation} educations={educations} deleteEducation={deleteEducation} upDateEducation={upDateEducation}/>
+                    <Experience addExperience={addExperience} experiences={experiences} deleteExperience={deleteExperience} upDateExperience={upDateExperience}/>
                 </div>
                 <div id="right">
                     <CV personalDetail={personalDetail} educations={educations} experiences={experiences}/>

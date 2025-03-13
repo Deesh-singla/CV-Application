@@ -168,3 +168,10 @@ body {
     overflow-wrap: break-word;
     white-space: normal;
 }
+
+.prevData span{
+    cursor: pointer;
+}
+.detailsForm button{
+    cursor: pointer;
+}

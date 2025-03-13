@@ -1,9 +1,10 @@
 import { Fragment, useState } from "react";
-export default function Education({ addEducation, educations, deleteEducation }) {
+export default function Education({ addEducation, educations, deleteEducation ,upDateEducation}) {
     const defaultEducation = { school: '', degree: '', startDate: '', endDate: '', location: '' };
     const [education, SetEducation] = useState(defaultEducation)
     const [show, setShow] = useState(false);
     const [showForm, setShowForm] = useState(false);
+    const [editingIndex, setEditingIndex] = useState(null)
     function handleClick() {
         if (show) setShow(false)
         else setShow(true)
@@ -21,11 +22,17 @@ export default function Education({ addEducation, educations, deleteEducation })
     function handleClickSubmit(e) {
         e.preventDefault();
         setShowForm(false)
-        addEducation(education);
+        if(editingIndex!==null){
+            upDateEducation(education,editingIndex);
+        }
+        else addEducation(education);
+        setEditingIndex(null);
+        SetEducation(defaultEducation);
     }
     function editEducation(i) {
         setShowForm(true)
         SetEducation({ ...educations[i] });
+        setEditingIndex(i);
     }
     function deleteInfo(e, i) {
         e.stopPropagation();

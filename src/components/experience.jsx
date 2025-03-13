@@ -1,12 +1,16 @@
-import { Fragment,useState } from "react";
+import { Fragment, useState } from "react";
 
-export default function Experience({addExperience,experiences,deleteExperience}) {
+export default function Experience({ addExperience, experiences, deleteExperience, upDateExperience }) {
     const defaultExperience = { companyName: "", positionTitle: '', startDate: "", endDate: "", location: "", description: "" }
     const [experience, setExperience] = useState(defaultExperience);
     const [show, setShow] = useState(false);
     const [showForm, setShowForm] = useState(false);
+    const [editingIndex, setEditingIndex] = useState(null)
     function handleClick() {
-        if (show) setShow(false)
+        if (show) {
+            setShow(false)
+            setShowForm(false)
+        }
         else setShow(true)
     }
     function onChangeInput(e) {
@@ -22,13 +26,19 @@ export default function Experience({addExperience,experiences,deleteExperience})
     function handleClickSubmit(e) {
         e.preventDefault();
         setShowForm(false)
-        addExperience(experience)
+        if (editingIndex !== null) {
+            upDateExperience(experience, editingIndex);
+        }
+        else addExperience(experience);
+        setEditingIndex(null);
+        setExperience(defaultExperience);
     }
-    function editExperience(i){
+    function editExperience(i) {
         setShowForm(true)
         setExperience({ ...experiences[i] });
+        setEditingIndex(i);
     }
-    function deleteInfo(e,i){
+    function deleteInfo(e, i) {
         e.stopPropagation();
         deleteExperience(i);
         setExperience(defaultExperience)
@@ -38,7 +48,7 @@ export default function Experience({addExperience,experiences,deleteExperience})
             <h1 className="formHeading" onClick={handleClick}><span>Experience</span><span><i className={show ? "bx bx-chevron-up" : "bx bx-chevron-down"}></i></span></h1>
             {show && !showForm && <div className="addData">
                 <div className="prevData">
-                    {experiences.map((x, index) => <Fragment key={index}><hr /><h2 onClick={() => editExperience(index)}>{x.companyName}<span><i className='bx bxs-trash' onClick={(e) => deleteInfo(e, index)}></i></span></h2></Fragment>)}
+                    {experiences.map((x, index) => <Fragment key={index}><hr /><h2 onClick={() => editExperience(index)}><span>{x.companyName}</span><span><i className='bx bxs-trash' onClick={(e) => deleteInfo(e, index)}></i></span></h2></Fragment>)}
                 </div>
                 <button className="addBtn" onClick={handleshowForm}>Add Experience</button>
             </div>}
@@ -55,7 +65,7 @@ export default function Experience({addExperience,experiences,deleteExperience})
                     <label htmlFor="location">Location</label>
                     <input type="text" id="location" name="location" placeholder="Enter Location" onChange={onChangeInput} value={experience.location} required />
                     <label htmlFor="description">Description</label>
-                    <textarea id="description" name="description" rows={5} cols={5} placeholder="Enter Description" onChange={onChangeInput}/>
+                    <textarea id="description" name="description" rows={5} cols={5} placeholder="Enter Description" onChange={onChangeInput} value={experience.description}/>
                     <button type="submit">Save</button>
                 </form>
             }
